@@ -59,17 +59,39 @@
                                     <outlet property="status" destination="aRv-lt-rFe" id="8Ne-bW-dXI"/>
                                 </connections>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="omV-fm-8Hj" customClass="ButtonBag" customModule="ClientMLiOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="118" width="375" height="471"/>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVJ-7p-ldI">
+                                <rect key="frame" x="168" y="597" width="39" height="30"/>
+                                <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Reset"/>
+                                <connections>
+                                    <action selector="resetAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PRd-0U-27y"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="omV-fm-8Hj" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="4dZ-ed-bsW"/>
+                            <constraint firstItem="omV-fm-8Hj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CKS-u9-buA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="QVJ-7p-ldI" secondAttribute="bottom" constant="40" id="NQP-Sc-Y4v"/>
+                            <constraint firstItem="omV-fm-8Hj" firstAttribute="top" secondItem="e9i-Wb-VSc" secondAttribute="bottom" constant="8" id="Ovs-LU-9lp"/>
                             <constraint firstItem="e9i-Wb-VSc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YxM-oz-9YG"/>
+                            <constraint firstItem="QVJ-7p-ldI" firstAttribute="top" secondItem="omV-fm-8Hj" secondAttribute="bottom" constant="8" id="cWB-qk-WxE"/>
                             <constraint firstItem="e9i-Wb-VSc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="iNx-AE-XbO"/>
+                            <constraint firstItem="QVJ-7p-ldI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wFL-4k-jBZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="buttonBag" destination="omV-fm-8Hj" id="v1Y-m4-nyI"/>
+                        <outlet property="statsHUD" destination="e9i-Wb-VSc" id="7RP-E3-Ffl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="33.733133433283363"/>
         </scene>
     </scenes>
 </document>
