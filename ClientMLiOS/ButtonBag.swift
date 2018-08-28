@@ -30,7 +30,7 @@ class ButtonBag: UIStackView {
         for buttonTitle in buttonTitles {
             newButtons.append(self.buttonWith(name: buttonTitle))
         }
-        let maxWidth = UIScreen.main.bounds.size.width
+        let maxWidth = UIScreen.main.bounds.size.width - 32
         var remainingWidth = maxWidth
         var rowStackView = newRowStack()
         newButtons.forEach { (button) in
@@ -42,7 +42,7 @@ class ButtonBag: UIStackView {
             } else {
                 rowStackView.addArrangedSubview(button)
                 button.alpha = 0
-                remainingWidth -= (buttonWidth + 8)
+                remainingWidth -= (buttonWidth + 16)
             }
         }
         self.addArrangedSubview(rowStackView)
@@ -68,13 +68,14 @@ class ButtonBag: UIStackView {
     }
     
     public func resetSelected() {
-        let allButtons = self.subviews
-        //todo get to the buttons
-        allButtons.forEach { (maybeButton) in
-            if let button = maybeButton as? UIButton {
-                DispatchQueue.main.async {
-                    UIView.animate(withDuration: 0.3) {
-                        button.isSelected = false
+        let allStacks = self.subviews
+        allStacks.forEach { (stackView) in
+            stackView.subviews.forEach { (maybeButton) in
+                if let button = maybeButton as? UIButton {
+                    DispatchQueue.main.async {
+                        UIView.animate(withDuration: 0.3) {
+                            button.isSelected = false
+                        }
                     }
                 }
             }
@@ -85,22 +86,12 @@ class ButtonBag: UIStackView {
 extension ButtonBag {
     @objc private func update(sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.3) {
-                sender.backgroundColor = sender.isSelected ? sender.tintColor : .white
-            }
-        }
         self.delegate?.buttonBagDidUpdate()
     }
     
     private func buttonWith(name: String) -> UIButton {
         let newButton = UIButton(type: .system)
         newButton.setTitle(name, for: .normal)
-        newButton.setTitleColor(.white, for: .selected)
-        newButton.backgroundColor = .white
-        newButton.layer.cornerRadius = 8
-        newButton.layer.borderColor = newButton.tintColor.cgColor
-        newButton.layer.borderWidth = 1
         newButton.addTarget(self, action: #selector(update(sender:)), for: .touchUpInside)
         
         return newButton
@@ -109,9 +100,9 @@ extension ButtonBag {
     private func newRowStack() -> UIStackView {
         let rowStackView = UIStackView()
         rowStackView.backgroundColor = self.backgroundColor
-        rowStackView.alignment = .fill
+        rowStackView.distribution = .fillProportionally
         rowStackView.axis = .horizontal
-        rowStackView.spacing = 8
+        rowStackView.spacing = 16
         return rowStackView
     }
 }

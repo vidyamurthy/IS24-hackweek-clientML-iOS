@@ -19,6 +19,8 @@ class ViewController: UIViewController, ButtonBagDelegate {
                               "nooooo",
                               "yeeeea",
                               "awww yisss"])
+        let score = scoreCalculator.scoreFor([String]())
+        statsHUD.updateWithScore(score)
     }
     
     @IBAction func resetAction(_ sender: Any) {
