@@ -8,6 +8,7 @@ class ViewController: UIViewController, ButtonBagDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         buttonBag.delegate = self
         buttonBag.setButtons(["view buy expose",
                               "do buy search",

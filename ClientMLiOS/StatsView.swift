@@ -6,6 +6,8 @@ class StatsView: UIView {
     @IBOutlet weak var status: UILabel!
     
     public func updateWithScore(_ score: MLScoreTuple) {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = score.0 ? UIColor.green.cgColor : UIColor.red.cgColor
         self.score.text = "Score: \(score.1)"
         self.status.text = statusTextFor(score.0)
     }

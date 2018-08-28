@@ -55,12 +55,14 @@ class ButtonBag: UIStackView {
     }
     
     public func selectedButtons() -> [String]? {
-        let allButtons = self.subviews
+        let allStacks = self.subviews
         var selectedButtons = [String]()
-        allButtons.forEach { (maybeButton) in
-            if let button = maybeButton as? UIButton {
-                if button.isSelected {
-                    selectedButtons.append(button.title(for: .normal)!)
+        allStacks.forEach { (stackview) in
+            stackview.subviews.forEach { (maybeButton) in
+                if let button = maybeButton as? UIButton {
+                    if button.isSelected {
+                        selectedButtons.append(button.title(for: .normal)!)
+                    }
                 }
             }
         }
