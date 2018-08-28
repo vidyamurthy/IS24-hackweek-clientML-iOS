@@ -9,6 +9,16 @@ class ViewController: UIViewController, ButtonBagDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonBag.delegate = self
+        buttonBag.setButtons(["view buy expose",
+                              "do buy search",
+                              "search in berlin",
+                              "ran out of ideas for button titles",
+                              "event 1",
+                              "event 2",
+                              "bla bla",
+                              "nooooo",
+                              "yeeeea",
+                              "awww yisss"])
     }
     
     @IBAction func resetAction(_ sender: Any) {
