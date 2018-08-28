@@ -39,11 +39,11 @@ class ButtonBag: UIStackView {
                 self.addArrangedSubview(rowStackView)
                 remainingWidth = maxWidth
                 rowStackView = newRowStack()
-            } else {
-                rowStackView.addArrangedSubview(button)
-                button.alpha = 0
-                remainingWidth -= (buttonWidth + 16)
             }
+            
+            rowStackView.addArrangedSubview(button)
+            button.alpha = 0
+            remainingWidth -= (buttonWidth + 16)
         }
         self.addArrangedSubview(rowStackView)
         
