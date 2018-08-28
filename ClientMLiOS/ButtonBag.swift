@@ -42,7 +42,7 @@ class ButtonBag: UIStackView {
             } else {
                 rowStackView.addArrangedSubview(button)
                 button.alpha = 0
-                remainingWidth -= buttonWidth
+                remainingWidth -= (buttonWidth + 8)
             }
         }
         self.addArrangedSubview(rowStackView)
@@ -98,17 +98,20 @@ extension ButtonBag {
         newButton.setTitle(name, for: .normal)
         newButton.setTitleColor(.white, for: .selected)
         newButton.backgroundColor = .white
+        newButton.layer.cornerRadius = 8
+        newButton.layer.borderColor = newButton.tintColor.cgColor
+        newButton.layer.borderWidth = 1
         newButton.addTarget(self, action: #selector(update(sender:)), for: .touchUpInside)
-        let size = newButton.intrinsicContentSize
-        newButton.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         
         return newButton
     }
     
     private func newRowStack() -> UIStackView {
         let rowStackView = UIStackView()
+        rowStackView.backgroundColor = self.backgroundColor
         rowStackView.alignment = .fill
         rowStackView.axis = .horizontal
+        rowStackView.spacing = 8
         return rowStackView
     }
 }
