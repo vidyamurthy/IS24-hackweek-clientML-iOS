@@ -1,22 +1,31 @@
 import Foundation
 
 class ScoreCalculator {
-    let modelBias = 0.0
-    let modelWeights = [[Double]]()
-    let modelVectors = [[Double]]()
+    var modelBias = 0.0
+    var modelWeights = [[Double]]()
+    var modelVectors = [[Double]]()
     var tags = [String]()
+    
+    init() {
+        let model = ModelData.loadFromFile()
+        modelBias = model.bias!
+        modelWeights = model.weights!
+        modelVectors = model.vectors!
+    }
     
     public func scoreFor(_ tags: [String]) -> MLScoreTuple {
         let isGood = arc4random_uniform(500) > 250
         let score = Double(arc4random_uniform(500))
+        
+        self.tags = tags
+        print("Actual prediction:\(predictManually())")
+        
         return (isGood, score)
-//        self.tags = tags
-//        predictManually()
     }
     
     func predictManually() -> Double {
         let b = modelBias
-        let X = XMaker.makeXWith(tags: tags)
+        let X = XMaker.makeXWith(tags: tags, size: modelWeights.count)
         let w = modelWeights
         let v = modelVectors
         
@@ -92,7 +101,30 @@ extension ScoreCalculator {
 }
 
 class XMaker {
-    static func makeXWith(tags: [String]) -> [Double] {
-        return [1,0,0,0,0,0,1,0,0,0,0,1]
+    static func makeXWith(tags: [String], size: Int) -> [Double] {
+        var initialX = Array(repeating: 0.0, count: size)
+        let categories = TagsToCategoryTranslator.categoryKeysWith(tags: tags)
+        let indexes = categories.map { (category) -> Int in
+            CategoryToIndexTranslator.indexFor(category: category)
+        }
+        indexes.forEach { (index) in
+            initialX[index] = 1
+        }
+        
+        return initialX
+    }
+}
+
+class TagsToCategoryTranslator {
+    static func categoryKeysWith(tags: [String]) -> [String] {
+        // TODO:
+        return tags
+    }
+}
+
+class CategoryToIndexTranslator {
+    static func indexFor(category: String) -> Int {
+        // TODO:
+        return 0
     }
 }
