@@ -14,13 +14,9 @@ class ScoreCalculator {
 //        predictManually()
     }
     
-    private func makeXWith(tags: [String]) -> [Double] {
-        return [1,0,0,0,0,0,1,0,0,0,0,1]
-    }
-    
     func predictManually() -> Double {
         let b = modelBias
-        let X = makeXWith(tags: tags)
+        let X = XMaker.makeXWith(tags: tags)
         let w = modelWeights
         let v = modelVectors
         
@@ -92,5 +88,11 @@ extension ScoreCalculator {
             returnArray.append(lhs[i]-rhs[i])
         }
         return returnArray
+    }
+}
+
+class XMaker {
+    static func makeXWith(tags: [String]) -> [Double] {
+        return [1,0,0,0,0,0,1,0,0,0,0,1]
     }
 }
