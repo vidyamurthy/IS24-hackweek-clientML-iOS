@@ -13,14 +13,9 @@ class ButtonBag: UIStackView {
     }
     
     private func removeOldButtons() {
-        let allButtons = self.subviews
-        allButtons.forEach { (button) in
+        self.subviews.forEach { (subview) in
             DispatchQueue.main.async {
-                UIView.animate(withDuration: 0.3, animations: {
-                    button.alpha = 0
-                }, completion: { (_) in
-                    button.removeFromSuperview()
-                })
+                subview.removeFromSuperview()
             }
         }
     }
@@ -40,18 +35,10 @@ class ButtonBag: UIStackView {
                 remainingWidth = maxWidth
                 rowStackView = newRowStack()
             }
-            
             rowStackView.addArrangedSubview(button)
-            button.alpha = 0
             remainingWidth -= (buttonWidth + 16)
         }
         self.addArrangedSubview(rowStackView)
-        
-        newButtons.forEach { (button) in
-            UIView.animate(withDuration: 0.3) {
-                button.alpha = 1
-            }
-        }
     }
     
     public func selectedButtons() -> [String]? {

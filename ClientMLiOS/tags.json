@@ -41,8 +41,6 @@
   },
   {
     "index": 3881,
-    "topKey": "pageId",
-    "smallKey": "is24.de.inka.wohnen.berlin_berlin.grundstueck-kaufen_seite-3",
     "name": "View a buy plot for Berlin"
   },
   {
@@ -151,7 +149,6 @@
   },
   {
     "index": 4272,
-    "topKey": "pageId",
     "name": "Download a loan contract"
   },
   {
@@ -240,7 +237,7 @@
   },
   {
     "index": 2671,
-    "name": "Check project partner for `neubau houses"
+    "name": "Check project partner for new houses"
   },
   {
     "index": 1542,

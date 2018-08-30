@@ -19,16 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e9i-Wb-VSc" customClass="StatsView" customModule="ClientMLiOS" customModuleProvider="target">
-                                <rect key="frame" x="118" y="36" width="138" height="54"/>
+                                <rect key="frame" x="130" y="36" width="115.5" height="36.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Score : 555" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9o-AG-SaL" userLabel="Score">
-                                        <rect key="frame" x="24.5" y="53" width="89" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Not a lead yet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRv-lt-rFe" userLabel="Status">
-                                        <rect key="frame" x="16" y="16" width="106" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Score: 51.9%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9o-AG-SaL" userLabel="Score">
+                                        <rect key="frame" x="8" y="8" width="99.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -36,12 +30,10 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="aRv-lt-rFe" firstAttribute="top" secondItem="e9i-Wb-VSc" secondAttribute="top" constant="16" id="6oc-GP-AWI"/>
-                                    <constraint firstAttribute="trailing" secondItem="aRv-lt-rFe" secondAttribute="trailing" constant="16" id="8zS-1I-YMy"/>
-                                    <constraint firstItem="g9o-AG-SaL" firstAttribute="centerX" secondItem="e9i-Wb-VSc" secondAttribute="centerX" id="JIg-UO-k54"/>
-                                    <constraint firstItem="g9o-AG-SaL" firstAttribute="top" secondItem="aRv-lt-rFe" secondAttribute="bottom" constant="16" id="KMK-FO-cYL"/>
-                                    <constraint firstAttribute="bottom" secondItem="g9o-AG-SaL" secondAttribute="bottom" constant="16" id="Nq6-im-uDZ"/>
-                                    <constraint firstItem="aRv-lt-rFe" firstAttribute="leading" secondItem="e9i-Wb-VSc" secondAttribute="leading" constant="16" id="t0r-6V-AtL"/>
+                                    <constraint firstAttribute="trailing" secondItem="g9o-AG-SaL" secondAttribute="trailing" constant="8" id="Amz-1a-Pvi"/>
+                                    <constraint firstAttribute="bottom" secondItem="g9o-AG-SaL" secondAttribute="bottom" constant="8" id="dnX-OY-QbF"/>
+                                    <constraint firstItem="g9o-AG-SaL" firstAttribute="top" secondItem="e9i-Wb-VSc" secondAttribute="top" constant="8" id="m5P-s9-VTf"/>
+                                    <constraint firstItem="g9o-AG-SaL" firstAttribute="leading" secondItem="e9i-Wb-VSc" secondAttribute="leading" constant="8" id="rXE-4d-BEB"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -50,13 +42,12 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="score" destination="g9o-AG-SaL" id="7Ga-ye-Ibf"/>
-                                    <outlet property="status" destination="aRv-lt-rFe" id="8Ne-bW-dXI"/>
                                 </connections>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="omV-fm-8Hj" customClass="ButtonBag" customModule="ClientMLiOS" customModuleProvider="target">
-                                <rect key="frame" x="16" y="106" width="343" height="455"/>
+                                <rect key="frame" x="16" y="133.5" width="343" height="400"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="455" placeholder="YES" id="CFe-Cl-ZYL"/>
+                                    <constraint firstAttribute="height" constant="400" placeholder="YES" id="CFe-Cl-ZYL"/>
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVJ-7p-ldI">

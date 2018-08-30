@@ -14,13 +14,11 @@ class ScoreCalculator {
     }
     
     public func scoreFor(_ tags: [String]) -> MLScoreTuple {
-        let isGood = arc4random_uniform(500) > 250
-        let score = Double(arc4random_uniform(500))
-        
         self.tags = tags
-        print("Actual prediction:\(predictManually())")
+        let prediction = predictManually()
         
-        return (isGood, score)
+        
+        return (prediction > 0.6, prediction * 100)
     }
     
     func predictManually() -> Double {
@@ -103,28 +101,52 @@ extension ScoreCalculator {
 class XMaker {
     static func makeXWith(tags: [String], size: Int) -> [Double] {
         var initialX = Array(repeating: 0.0, count: size)
-        let categories = TagsToCategoryTranslator.categoryKeysWith(tags: tags)
-        let indexes = categories.map { (category) -> Int in
-            CategoryToIndexTranslator.indexFor(category: category)
+        let indices = tags.map { (aTag) -> Int in
+            return TagsToIndexTranslator.indexOf(tag: aTag)
         }
-        indexes.forEach { (index) in
+        indices.forEach { (index) in
             initialX[index] = 1
         }
-        
+
         return initialX
     }
 }
 
-class TagsToCategoryTranslator {
-    static func categoryKeysWith(tags: [String]) -> [String] {
-        // TODO:
-        return tags
-    }
-}
 
-class CategoryToIndexTranslator {
-    static func indexFor(category: String) -> Int {
-        // TODO:
+
+class TagsToIndexTranslator {
+    struct Tag: Codable {
+        let index: Int
+        let name: String
+    }
+    
+    static let tagsAndIndexCatalog: [Tag] = {
+        let fileURL = URL(fileURLWithPath: Bundle.main.path(forResource: "tags", ofType: "json")!)
+        let jsonData = try! Data(contentsOf: fileURL)
+        let model = try! JSONDecoder().decode([Tag].self, from: jsonData)
+        return model
+    }()
+    
+    static func indexOf(tag: String) -> Int {
+        let filtered = tagsAndIndexCatalog.filter { (aTag) -> Bool in
+            if aTag.name == tag {
+                return true
+            }
+            return false
+        }
+        if filtered.count > 0 {
+               return filtered.first!.index
+        }
+        
         return 0
+    }
+    
+    static func giveMe20RandomTags() -> [String] {
+        var randomTags = [String]()
+        for _ in 0..<20 {
+            let randIndex = arc4random_uniform(UInt32(tagsAndIndexCatalog.count))
+            randomTags.append(tagsAndIndexCatalog[Int(randIndex)].name)
+        }
+        return randomTags
     }
 }
