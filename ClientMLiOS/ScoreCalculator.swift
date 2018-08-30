@@ -143,9 +143,12 @@ class TagsToIndexTranslator {
     
     static func giveMe20RandomTags() -> [String] {
         var randomTags = [String]()
-        for _ in 0..<20 {
+        while randomTags.count <= 20 {
             let randIndex = arc4random_uniform(UInt32(tagsAndIndexCatalog.count))
-            randomTags.append(tagsAndIndexCatalog[Int(randIndex)].name)
+            let maybeNewRandomTag = tagsAndIndexCatalog[Int(randIndex)].name
+            if !randomTags.contains(maybeNewRandomTag) {
+                randomTags.append(maybeNewRandomTag)
+            }
         }
         return randomTags
     }

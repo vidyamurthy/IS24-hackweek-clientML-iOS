@@ -11,6 +11,10 @@ class StatsView: UIView {
         return numberFormatter
     }()
     
+    override func awakeFromNib() {
+        self.score.textColor = UIColor(red: 0, green: 52/255.0, blue: 104/255.0, alpha: 1)
+    }
+    
     public func updateWithScore(_ score: MLScoreTuple) {
         self.score.text = "Score: \(percentFormatter.string(from: NSNumber(value: score.1))!)%"
     }

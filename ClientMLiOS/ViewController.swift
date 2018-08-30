@@ -1,5 +1,6 @@
 import UIKit
 
+
 class ViewController: UIViewController, ButtonBagDelegate {
     
     @IBOutlet weak var statsHUD: StatsView!
@@ -11,6 +12,8 @@ class ViewController: UIViewController, ButtonBagDelegate {
     @IBOutlet weak var rightAnimationConstraint: NSLayoutConstraint!
     @IBOutlet weak var leftAnimationConstraint: NSLayoutConstraint!
     
+    var flashedOnce = false
+    
     private let scoreCalculator = ScoreCalculator()
     
     override func viewDidLoad() {
@@ -20,7 +23,10 @@ class ViewController: UIViewController, ButtonBagDelegate {
         buttonBag.setButtons(TagsToIndexTranslator.giveMe20RandomTags())
         let score = scoreCalculator.scoreFor([String]())
         statsHUD.updateWithScore(score)
-        updateAnimationFor(score: score.1)
+        updateProgressViewWith(score: score.1)
+        animationView.subviews.forEach { (view) in
+            view.layer.cornerRadius = 2
+        }
     }
     
     @IBAction func resetAction(_ sender: Any) {
@@ -37,26 +43,59 @@ class ViewController: UIViewController, ButtonBagDelegate {
                 self?.buttonBag.transform = .identity
             }, completion: nil)
         }
+        
+        updateProgressViewWith(score: score.1)
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
+            self?.statsHUD.updateWithScore(score)
+            self?.animationView.layoutIfNeeded()
+            self?.animationView.alpha = CGFloat((score.1 - 40.0) / 20.0)
+            }, completion: nil)
     }
     
     func buttonBagDidUpdate() {
+        var score: MLScoreTuple
         if let selectedTags = buttonBag.selectedButtons() {
-            let score = scoreCalculator.scoreFor(selectedTags)
-            statsHUD.updateWithScore(score)
-            updateAnimationFor(score: score.1)
+            score = scoreCalculator.scoreFor(selectedTags)
         } else {
-            let score = scoreCalculator.scoreFor([String]())
-            statsHUD.updateWithScore(score)
-            updateAnimationFor(score: score.1)
+            score = scoreCalculator.scoreFor([String]())
+        }
+        
+        updateProgressViewWith(score: score.1)
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
+            self?.statsHUD.updateWithScore(score)
+            self?.animationView.layoutIfNeeded()
+            self?.animationView.alpha = CGFloat((score.1 - 40.0) / 20.0)
+        }) { [weak self] (_) in
+            if score.1 >= 60 {
+                self?.flashAnimationView()
+                self?.flashedOnce = true
+            } else {
+                self?.flashedOnce = false
+            }
         }
     }
     
-    func updateAnimationFor(score: Double) {
+    func flashAnimationView() {
+        guard flashedOnce == false else {
+            return
+        }
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: { [weak self] in
+            self?.animationView.backgroundColor = self?.animationView.subviews.first!.backgroundColor!
+            self?.animationView.alpha = 0.2
+        }) { [weak self] (_) in
+            UIView.animate(withDuration: 0.05, animations: {
+                self?.animationView.backgroundColor = .clear
+                self?.animationView.alpha = 1
+            })
+        }
+    }
+    
+    func updateProgressViewWith(score: Double) {
         let defaultWidth = animationView.frame.width / 4
         let defaultHeight = animationView.frame.height / 4
         
         let maxWidth = animationView.frame.width
-        let maxHeight = animationView.frame.height - 16
+        let maxHeight = animationView.frame.height - 4
         
         if score <= 40.0 {
             topAnimationConstraint.constant = defaultWidth
@@ -64,7 +103,7 @@ class ViewController: UIViewController, ButtonBagDelegate {
             
             rightAnimationConstraint.constant = defaultHeight
             leftAnimationConstraint.constant = defaultHeight
-           
+           animationView.setNeedsLayout()
             return
         }
         if score >= 60.0 {
@@ -73,7 +112,7 @@ class ViewController: UIViewController, ButtonBagDelegate {
             
             rightAnimationConstraint.constant = maxHeight
             leftAnimationConstraint.constant = maxHeight
-           
+            animationView.setNeedsLayout()
             return
         }
         
@@ -85,10 +124,7 @@ class ViewController: UIViewController, ButtonBagDelegate {
         
         rightAnimationConstraint.constant = calculatedHeight + defaultHeight
         leftAnimationConstraint.constant = calculatedHeight + defaultHeight
-        
-        
-        animationView.alpha = CGFloat((score - 40.0) / 20.0)
-        
+        animationView.setNeedsLayout()
     }
 }
 
