@@ -79,11 +79,11 @@ class ViewController: UIViewController, ButtonBagDelegate {
         guard flashedOnce == false else {
             return
         }
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: { [weak self] in
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: { [weak self] in
             self?.animationView.backgroundColor = self?.animationView.subviews.first!.backgroundColor!
             self?.animationView.alpha = 0.2
         }) { [weak self] (_) in
-            UIView.animate(withDuration: 0.05, animations: {
+            UIView.animate(withDuration: 0.1, animations: {
                 self?.animationView.backgroundColor = .clear
                 self?.animationView.alpha = 1
             })
