@@ -82,7 +82,7 @@ extension ButtonBag {
         let newButton = UIButton(type: .system)
         newButton.setTitle(name, for: .normal)
         newButton.addTarget(self, action: #selector(update(sender:)), for: .touchUpInside)
-        newButton.tintColor = UIColor(red: 0, green: 52/255.0, blue: 104/255.0, alpha: 1)
+        newButton.tintColor = UIColor(red: 57/255.0, green: 64/255.0, blue: 69/255.0, alpha: 1)
         return newButton
     }
     
