@@ -12,10 +12,19 @@ class StatsView: UIView {
     }()
     
     override func awakeFromNib() {
-        self.score.textColor = UIColor(red: 0, green: 52/255.0, blue: 104/255.0, alpha: 1)
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.borderWidth = 0.5
     }
     
     public func updateWithScore(_ score: MLScoreTuple) {
+        switch score.1 {
+        case 0..<40:
+            self.backgroundColor = UIColor(red: 255/255.0, green: 87/255.0, blue: 63/255.0, alpha: 1)
+        case 60..<100:
+            self.backgroundColor = UIColor(red: 76/255.0, green: 175/255.0, blue: 80/255.0, alpha: 1)
+        default:
+            self.backgroundColor = UIColor(red: 251/255.0, green: 192/255.0, blue: 45/255.0, alpha: 1)
+        }
         self.score.text = "Score: \(percentFormatter.string(from: NSNumber(value: score.1))!)%"
     }
 }
